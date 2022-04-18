@@ -147,7 +147,7 @@ const HomePage = () => {
       setImportLoading(true);
       let _importedTemplates = [];
 
-      for await (const template of importedTemplates) {
+      await importedTemplates.forEach((template)=>{
         console.log('💬 :: forawait :: template', template);
         const response = await request(`/${pluginId}/templates/${template.id}`, {
           method: 'POST',
@@ -161,7 +161,7 @@ const HomePage = () => {
         console.log('💬 :: forawait :: response', response);
 
         if (!isEmpty(response)) _importedTemplates.push(response);
-      }
+      });
 
       let newTemplates = [...emailTemplates, ..._importedTemplates].map((data) => {
         data.enabled = data.enabled?.toString();
